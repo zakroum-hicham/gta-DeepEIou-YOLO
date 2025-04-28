@@ -13,7 +13,9 @@ cd reid
 pip install -r requirements.txt
 pip install cython_bbox
 python setup.py develop
+pip install -q ultralytics 
 ```
+
 
 ## RUN DEMO
 
