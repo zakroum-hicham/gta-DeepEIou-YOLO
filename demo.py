@@ -10,7 +10,7 @@ import sys
 sys.path.append('.')
 from reid.torchreid.utils import FeatureExtractor
 from tracker.Deep_EIoU import Deep_EIoU
-from yolox.utils.visualize import plot_tracking
+from utils.visualize import plot_tracking
 
 
 def make_parser():
