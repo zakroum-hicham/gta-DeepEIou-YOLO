@@ -15,11 +15,8 @@ from utils.visualize import plot_tracking
 
 def make_parser():
     parser = argparse.ArgumentParser("DeepEIoU Demo")
-    parser.add_argument("-expn", "--experiment-name", type=str, default=None)
-    parser.add_argument("-n", "--name", type=str, default=None, help="model name")
-
     parser.add_argument(
-        "--path", default="../demo.mp4", help="path to images or video"
+        "--path", default="video.mp4", help="path to images or video"
     )
     parser.add_argument(
         "--save_result",
@@ -27,7 +24,7 @@ def make_parser():
         help="whether to save the inference result of image/video",
     )
 
-    parser.add_argument("-c", "--ckpt", default=None, type=str, help="ckpt for eval")
+    parser.add_argument("--ckpt", default=None, type=str, help="ckpt for eval")
     parser.add_argument(
         "--device",
         default="gpu",
@@ -36,7 +33,6 @@ def make_parser():
     )
     parser.add_argument("--conf", default=None, type=float, help="test conf")
     parser.add_argument("--nms", default=None, type=float, help="test nms threshold")
-    parser.add_argument("--tsize", default=None, type=int, help="test img size")
     parser.add_argument("--fps", default=30, type=int, help="frame rate (fps)")
 
     # tracking args
@@ -71,7 +67,7 @@ def imageflow_demo(predictor, extractor, vis_folder, current_time, args):
     vid_writer = cv2.VideoWriter(
         save_path, cv2.VideoWriter_fourcc(*"mp4v"), fps, (int(width), int(height))
     )
-    tracker = Deep_EIoU(args, frame_rate=30)
+    tracker = Deep_EIoU(args, frame_rate=args.fps)
     frame_id = 0
     results = []
     while True:
@@ -109,7 +105,7 @@ def imageflow_demo(predictor, extractor, vis_folder, current_time, args):
                             f"{frame_id},{tid},{tlwh[0]:.2f},{tlwh[1]:.2f},{tlwh[2]:.2f},{tlwh[3]:.2f},{t.score:.2f},-1,-1,-1\n"
                         )
                 online_im = plot_tracking(
-                    frame, online_tlwhs, online_ids, frame_id=frame_id + 1, fps=30
+                    frame, online_tlwhs, online_ids, frame_id=frame_id + 1, fps=fps
                 )
             else:
                 online_im = frame
@@ -123,7 +119,7 @@ def imageflow_demo(predictor, extractor, vis_folder, current_time, args):
         frame_id += 1
 
     if args.save_result:
-        res_file = osp.join(vis_folder, f"{timestamp}.txt")
+        res_file = osp.join(save_folder, args.path.split("/")[-1].split(".")[0] + ".txt")
         with open(res_file, 'w') as f:
             f.writelines(results)
         logger.info(f"save results to {res_file}")
@@ -132,11 +128,8 @@ def imageflow_demo(predictor, extractor, vis_folder, current_time, args):
 
 def main(args):
 
-    output_dir = "/content/out"
+    output_dir = "out"
     os.makedirs(output_dir, exist_ok=True)
-
-    vis_folder = osp.join(output_dir, "track_vis")
-    os.makedirs(vis_folder, exist_ok=True)
 
   
     args.device = torch.device("cuda" if args.device == "gpu" else "cpu")
@@ -154,7 +147,7 @@ def main(args):
         device='cuda'
     )   
 
-    imageflow_demo(model, extractor, vis_folder, current_time, args)
+    imageflow_demo(model, extractor, output_dir, current_time, args)
 
 
 
