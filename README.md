@@ -1,3 +1,5 @@
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/gta-global-tracklet-association-for-multi/multiple-object-tracking-on-sportsmot)](https://paperswithcode.com/sota/multiple-object-tracking-on-sportsmot?p=gta-global-tracklet-association-for-multi)
+
 # gta-DeepEIou-YOLO
 
 ## Setup Instructions
@@ -47,3 +49,16 @@ python refine_tracklets.py --video_path "{video_path}" --track_src "ex: out/trac
 
 ```
 ### DEMO
+
+# Citation
+
+```
+@inproceedings{sun2024gta,
+  title={GTA: Global Tracklet Association for Multi-Object Tracking in Sports},
+  author={Sun, Jiacheng and Huang, Hsiang-Wei and Yang, Cheng-Yen and Hwang, Jenq-Neng},
+  booktitle = {Proceedings of the Asian Conference on Computer Vision},
+  pages = {421-434},
+  year={2024},
+  publisher = {Springer}
+}
+```
