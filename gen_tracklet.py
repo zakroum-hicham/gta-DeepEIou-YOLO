@@ -99,7 +99,7 @@ def make_parser():
     )
     parser.add_argument(
         "--output_dir",
-        default="out",
+        default="out/tracklets",
         type=str,
         help="output directory to save the results",
     )
