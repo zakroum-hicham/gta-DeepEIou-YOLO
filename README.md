@@ -31,6 +31,10 @@ python demo.py --path "{video_path}" --ckpt "checkpoints/best.pt"
 ### DEMO
 [Demo DeepEIoU](https://github.com/zakroum-hicham/gta-DeepEIou-YOLO/blob/main/demo1.mp4)
 
+
+https://github.com/user-attachments/assets/2fd4980f-1d51-40ec-9518-57425db72851
+
+
 ## RUN DeepEIoU + GTA DEMO
 
 1.Generate tracklets
@@ -49,6 +53,11 @@ python refine_tracklets.py --video_path "{video_path}" --track_src "ex: out/trac
 
 ```
 ### DEMO
+
+
+https://github.com/user-attachments/assets/1ffd2120-5c8f-49e0-919f-8474e32763b8
+
+
 
 # Citation
 
